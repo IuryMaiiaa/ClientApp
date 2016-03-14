@@ -12,7 +12,7 @@ import HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao.ControleChamad
 /**
  * Created by Iury on 1/6/2016.
  */
-public class ControladorDeChamadasHttpCordenadas {
+public class CordenadasHttpController {
     UrlChamadaServidor urlServidor = new UrlChamadaServidor();
 
     public ArrayList<CordenadaGeografica> getTodasCordenadas() {
