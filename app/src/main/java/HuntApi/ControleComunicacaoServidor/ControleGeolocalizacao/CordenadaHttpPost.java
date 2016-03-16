@@ -21,7 +21,7 @@ import HuntApi.Model.CordenadaGeografica;
 /**
  * Created by Iury on 1/8/2016.
  */
-public class ControleChamadaPost extends AsyncTask<String, Void, String> {
+public class CordenadaHttpPost extends AsyncTask<String, Void, String> {
     CordenadaGeografica cordenada;
     URL url;
     URLConnection conn = null;

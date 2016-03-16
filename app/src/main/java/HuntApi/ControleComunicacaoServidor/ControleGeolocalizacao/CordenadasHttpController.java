@@ -7,21 +7,28 @@ import java.util.concurrent.ExecutionException;
 
 import HuntApi.ControleComunicacaoServidor.UrlChamadaServidor;
 import HuntApi.Model.CordenadaGeografica;
-import HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao.ControleChamadaGet;
 
 /**
  * Created by Iury on 1/6/2016.
  */
 public class CordenadasHttpController {
-    UrlChamadaServidor urlServidor = new UrlChamadaServidor();
+    UrlChamadaServidor urlServidor;
+    CordenadaHttpPost cordenadaHttpPost;
+    CordenadaHttpGet cordenadaHttpGet;
+
+    public CordenadasHttpController() {
+        urlServidor = new UrlChamadaServidor();
+        cordenadaHttpPost = new CordenadaHttpPost();
+        cordenadaHttpGet = new CordenadaHttpGet();
+    }
 
     public ArrayList<CordenadaGeografica> getTodasCordenadas() {
-        ControleChamadaGet chamarCordenadas = new ControleChamadaGet();
+
         ArrayList<CordenadaGeografica> cordenadas = new ArrayList<CordenadaGeografica>();
-        chamarCordenadas.execute(urlServidor.getUrlCordenada() + "listarTodos");
+        cordenadaHttpGet.execute(urlServidor.getUrlCordenada() + "listarTodos");
 
         try {
-            cordenadas = chamarCordenadas.get();
+            cordenadas = cordenadaHttpGet.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -31,8 +38,7 @@ public class CordenadasHttpController {
     }
 
     public void adicionarCordenada(CordenadaGeografica cordenada) {
-        ControleChamadaPost addCordenada = new ControleChamadaPost();
-        addCordenada.addCordenada(urlServidor.getUrlCordenada() + "adicionarCordenada", cordenada);
+        cordenadaHttpPost.addCordenada(urlServidor.getUrlCordenada() + "adicionarCordenada", cordenada);
     }
 
 }

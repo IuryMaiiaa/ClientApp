@@ -23,7 +23,7 @@ import HuntApi.Model.CordenadaGeografica;
 /**
  * Created by Iury on 1/2/2016.
  */
-public class ControleChamadaGet extends AsyncTask<String, Void, ArrayList> {
+public class CordenadaHttpGet extends AsyncTask<String, Void, ArrayList> {
 
     @Override
     protected ArrayList doInBackground(String... strings) {
