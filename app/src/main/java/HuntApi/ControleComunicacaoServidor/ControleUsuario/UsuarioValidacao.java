@@ -1,0 +1,85 @@
+package HuntApi.ControleComunicacaoServidor.ControleUsuario;
+
+import android.os.AsyncTask;
+
+import com.google.gson.Gson;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
+
+import HuntApi.Model.Usuario;
+
+/**
+ * Created by Iury on 3/16/2016.
+ */
+public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
+    private String email;
+    private int senha;
+
+    private Gson gson;
+
+    public UsuarioValidacao() {
+        gson = new Gson();
+    }
+
+
+    @Override
+    protected Usuario doInBackground(String... strings) {
+        Usuario usuario = new Usuario();
+        try {
+            URL url = new URL(strings[0]+"/"+email+"/"+senha);
+            HttpURLConnection conn  = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(100000);
+            conn.setConnectTimeout(150000);
+            conn.setRequestMethod("GET");
+
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            conn.connect();
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                usuario = gson.fromJson(line,Usuario.class);
+            }
+            rd.close();
+            conn.disconnect();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+
+    public Usuario getUsuario(String url, String email, int senha) {
+        this.email = email;
+        this.senha = senha;
+        this.execute(url);
+        Usuario usuario = new Usuario();
+
+        try {
+            usuario = this.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+}

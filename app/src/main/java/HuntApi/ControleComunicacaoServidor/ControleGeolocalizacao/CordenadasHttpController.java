@@ -1,11 +1,9 @@
 package HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import HuntApi.ControleComunicacaoServidor.UrlChamadaServidor;
+import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
 import HuntApi.Model.CordenadaGeografica;
 
 /**

@@ -1,4 +1,4 @@
-package HuntApi.ControleComunicacaoServidor;
+package HuntApi.ControleComunicacaoServidor.Utilities;
 
 /**
  * Created by Iury on 1/6/2016.

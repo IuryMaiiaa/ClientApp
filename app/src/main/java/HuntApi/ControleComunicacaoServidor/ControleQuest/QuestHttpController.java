@@ -1,6 +1,5 @@
 package HuntApi.ControleComunicacaoServidor.ControleQuest;
 
-import HuntApi.ControleComunicacaoServidor.UrlChamadaServidor;
 import HuntApi.Model.QuestGeolocalizada;
 
 /**

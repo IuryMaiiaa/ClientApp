@@ -14,7 +14,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-import HuntApi.ControleComunicacaoServidor.UrlChamadaServidor;
+import HuntApi.ControleComunicacaoServidor.Utilities.QuestReferenciaCircular;
+import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
 import HuntApi.Model.QuestGeolocalizada;
 
 /**
@@ -25,12 +26,15 @@ public class QuestControllerPost extends AsyncTask<String, Void, String> {
     private static String urlQuestRemover = "/removeQuest";
     private static String urlQuestUpdate = "/updateQuest";
 
+    private QuestReferenciaCircular questReferenciaCircular;
     private QuestGeolocalizada quest;
     private UrlChamadaServidor urlServidor;
-
+    private Gson gson;
 
     public QuestControllerPost() {
+        gson = new Gson();
         urlServidor = new UrlChamadaServidor();
+        questReferenciaCircular = new QuestReferenciaCircular();
     }
 
 
@@ -51,7 +55,7 @@ public class QuestControllerPost extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        Gson gson = new Gson();
+        quest = questReferenciaCircular.removendoReferenciasCirculares(quest);
         String message = gson.toJson(quest);
         try {
             URL url = new URL(urlServidor.getUrlQuest() + strings[0]);
