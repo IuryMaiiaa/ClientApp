@@ -3,40 +3,80 @@ package HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
 import HuntApi.Model.CordenadaGeografica;
 
 /**
  * Created by Iury on 1/8/2016.
  */
 public class CordenadaHttpPost extends AsyncTask<String, Void, String> {
+    public static String addCordenada = "/addCordenada";
+    public static String removeCordenada = "/removeCordenada";
+    public static String updateCordenada = "/updateCordenada";
+
     CordenadaGeografica cordenada;
-    URL url;
+    private Gson gson;
+
+    UrlChamadaServidor urlChamadaServidor;
     URLConnection conn = null;
+
+    public CordenadaHttpPost() {
+        gson = new Gson();
+        urlChamadaServidor = new UrlChamadaServidor();
+    }
+
+    public void addCordenada(CordenadaGeografica cordenada) {
+        this.cordenada = cordenada;
+        this.execute(addCordenada);
+    }
+
+    public void updateCordenada(CordenadaGeografica cordenada) {
+        this.cordenada = cordenada;
+        this.execute(updateCordenada);
+    }
+
+    public void removeCordenada(CordenadaGeografica cordenada) {
+        this.cordenada = cordenada;
+        this.execute(removeCordenada);
+    }
 
     @Override
     protected String doInBackground(String... strings) {
-        byte[] postData;
+        String message = gson.toJson(cordenada);
+
         try {
+            URL url = new URL(urlChamadaServidor.getUrlCordenada() + strings[0]);
+            HttpURLConnection conn  = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout( 100000 );
+            conn.setConnectTimeout( 150000 );
+            conn.setRequestMethod("POST");
 
-
-            String data = "?" + URLEncoder.encode("lat", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(cordenada.getLat()), "UTF-8");
-            data += "&" + URLEncoder.encode("lon", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(cordenada.getLon()), "UTF-8");
-
-            Log.d("Client", strings[0] + data);
-            URL url = new URL(strings[0]+data);
-            //urlConnection.connect();
-
-            conn = url.openConnection();
+            conn.setDoInput(true);
             conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(data);
+            conn.setFixedLengthStreamingMode(message.getBytes().length);
+
+            conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+            conn.setRequestProperty("X-Requested-With", "XMLHttpRequest");
+
+            conn.connect();
+
+            OutputStream wr = new BufferedOutputStream(conn.getOutputStream());
+            wr.write(message.getBytes());
             wr.flush();
 
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -46,17 +86,17 @@ public class CordenadaHttpPost extends AsyncTask<String, Void, String> {
             }
             wr.close();
             rd.close();
-
-        } catch (Exception e) {
+            conn.disconnect();
+        } catch (ProtocolException e) {
             e.printStackTrace();
-        } finally {
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        Log.d("Client",cordenada.toString() + "aqui");
-        return  null;
+
+        return null;
     }
 
-    public void addCordenada(String url, CordenadaGeografica cordenada) {
-        this.cordenada = cordenada;
-        this.execute(url);
-    }
+
 }
