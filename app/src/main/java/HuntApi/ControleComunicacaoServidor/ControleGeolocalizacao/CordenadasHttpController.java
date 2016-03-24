@@ -36,7 +36,7 @@ public class CordenadasHttpController {
     }
 
     public void adicionarCordenada(CordenadaGeografica cordenada) {
-        cordenadaHttpPost.addCordenada(urlServidor.getUrlCordenada() + "adicionarCordenada", cordenada);
+        cordenadaHttpPost.addCordenada(cordenada);
     }
 
 }
