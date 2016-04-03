@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-import HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao.ControladorDeChamadasHttpCordenadas;
+import HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao.CordenadasHttpController;
 import HuntApi.Model.CordenadaGeografica;
 
 public class MainActivity extends AppCompatActivity implements DialogInterface.OnClickListener {
@@ -26,26 +26,19 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         setSupportActionBar(toolbar);
 
 
-        Button botao = (Button)findViewById(R.id.my_button);
+        Button botao = (Button)findViewById(R.id.login);
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ControladorDeChamadasHttpCordenadas controle = new ControladorDeChamadasHttpCordenadas();
-                ArrayList<CordenadaGeografica> cordenadas = controle.getTodasCordenadas();
-                CordenadaGeografica cordenadaGeografica = null;
-                for(int cont=0; cont<cordenadas.size();cont++) {
-                    cordenadaGeografica = cordenadas.get(cont);
-                    Log.d("Client",cordenadaGeografica.toString());
-                }
 
             }
         });
 
-        Button botaoPost = (Button)findViewById(R.id.post);
+        Button botaoPost = (Button)findViewById(R.id.registrar);
         botaoPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ControladorDeChamadasHttpCordenadas controle = new ControladorDeChamadasHttpCordenadas();
+                CordenadasHttpController controle = new CordenadasHttpController();
                 CordenadaGeografica cordenadaGeografica = new CordenadaGeografica();
                 EditText etLatitude = (EditText)findViewById(R.id.latitude);
                 EditText etLongitude = (EditText)findViewById(R.id.longitude);

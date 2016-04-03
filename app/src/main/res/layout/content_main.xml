@@ -29,30 +29,19 @@
 
             android:layout_height="wrap_content"
 
-            android:text="Http GET Demo"/>
-
-        <Button
-
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-
-            android:layout_gravity="center"
-
-            android:text="GET"
-            android:id="@+id/my_button"/>
+            android:text="Hunt Api Game test 0.0001"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Latitude"
+            android:text="Email"
             android:id="@+id/textView2" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="textCapSentences"
             android:ems="10"
             android:id="@+id/latitude"
             android:layout_gravity="center_horizontal" />
@@ -61,21 +50,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="longitude"
+            android:text="senha"
             android:id="@+id/textView" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="textCapSentences"
             android:ems="10"
             android:id="@+id/longitude" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Post"
-            android:id="@+id/post"
+            android:text="Login"
+            android:id="@+id/login"
+            android:layout_gravity="center_horizontal" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrar"
+            android:id="@+id/registrar"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
