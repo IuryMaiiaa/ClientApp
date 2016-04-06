@@ -14,10 +14,13 @@ public class UsuarioReferenciaCircular {
     }
 
     public Usuario removendoReferenciasCirculares(Usuario usuario) {
-        for(QuestGeolocalizada quest : usuario.getMinhasQuests()) {
-            quest.setUsuario(null);
-            quest = questsReferenciaCircular.removendoReferenciasCirculares(quest);
+        if(usuario.getMinhasQuests() != null) {
+            for(QuestGeolocalizada quest : usuario.getMinhasQuests()) {
+                    quest.setUsuario(null);
+                    quest = questsReferenciaCircular.removendoReferenciasCirculares(quest);
+            }
         }
+
         return usuario;
     }
 

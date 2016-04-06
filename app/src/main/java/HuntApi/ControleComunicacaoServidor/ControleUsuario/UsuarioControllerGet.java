@@ -12,7 +12,7 @@ import HuntApi.Model.Usuario;
  * Created by Iury on 3/15/2016.
  */
 public class UsuarioControllerGet extends AsyncTask<String, Void, String> {
-    private static String urlUsuarioValidacao = "/getUsuario";
+    private static String urlUsuarioValidacao = "getUsuario";
 
     private UsuarioReferenciaCircular usuarioReferenciaCircular;
     private UrlChamadaServidor urlServidor;

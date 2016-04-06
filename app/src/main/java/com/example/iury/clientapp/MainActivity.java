@@ -41,13 +41,9 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         botaoPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CordenadasHttpController controle = new CordenadasHttpController();
-                CordenadaGeografica cordenadaGeografica = new CordenadaGeografica();
-                EditText etLatitude = (EditText)findViewById(R.id.latitude);
-                EditText etLongitude = (EditText)findViewById(R.id.longitude);
-                cordenadaGeografica.setLat(Double.valueOf(etLatitude.getText().toString()));
-                cordenadaGeografica.setLon(Double.valueOf(etLongitude.getText().toString()));
-                controle.adicionarCordenada(cordenadaGeografica);
+                Intent intent = new Intent(MainActivity.this,RegistroActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

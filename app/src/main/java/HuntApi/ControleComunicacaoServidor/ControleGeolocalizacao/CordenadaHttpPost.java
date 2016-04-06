@@ -25,9 +25,9 @@ import HuntApi.Model.CordenadaGeografica;
  * Created by Iury on 1/8/2016.
  */
 public class CordenadaHttpPost extends AsyncTask<String, Void, String> {
-    public static String addCordenada = "/addCordenada";
-    public static String removeCordenada = "/removeCordenada";
-    public static String updateCordenada = "/updateCordenada";
+    public static String addCordenada = "addCordenada";
+    public static String removeCordenada = "removeCordenada";
+    public static String updateCordenada = "updateCordenada";
 
     CordenadaGeografica cordenada;
     private Gson gson;

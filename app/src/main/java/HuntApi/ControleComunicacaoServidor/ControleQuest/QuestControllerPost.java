@@ -22,9 +22,9 @@ import HuntApi.Model.QuestGeolocalizada;
  * Created by Iury on 3/14/2016.
  */
 public class QuestControllerPost extends AsyncTask<String, Void, String> {
-    private static String urlQuestAdicionar = "/addQuest";
-    private static String urlQuestRemover = "/removeQuest";
-    private static String urlQuestUpdate = "/updateQuest";
+    private static String urlQuestAdicionar = "addQuest";
+    private static String urlQuestRemover = "removeQuest";
+    private static String urlQuestUpdate = "updateQuest";
 
     private QuestReferenciaCircular questReferenciaCircular;
     private QuestGeolocalizada quest;

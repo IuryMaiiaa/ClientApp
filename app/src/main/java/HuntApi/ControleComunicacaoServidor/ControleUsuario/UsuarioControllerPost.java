@@ -22,9 +22,9 @@ import HuntApi.Model.Usuario;
  * Created by Iury on 3/14/2016.
  */
 public class UsuarioControllerPost extends AsyncTask<String, Void, String> {
-    private static String urlUsuarioAdicionar = "/addUsuario";
-    private static String urlUsuarioRemover = "/removeUsuario";
-    private static String urlUsuarioUpdate = "/updateUsuario";
+    private static String urlUsuarioAdicionar = "addUsuario";
+    private static String urlUsuarioRemover = "removeUsuario";
+    private static String urlUsuarioUpdate = "updateUsuario";
 
     private UsuarioReferenciaCircular usuarioReferenciaCircular;
     private UrlChamadaServidor urlServidor;
@@ -60,7 +60,7 @@ public class UsuarioControllerPost extends AsyncTask<String, Void, String> {
         String message = gson.toJson(usuario);
 
         try {
-            URL url = new URL(urlServidor.getUrlQuest() + strings[0]);
+            URL url = new URL(urlServidor.getUrlUsuario() + strings[0]);
             HttpURLConnection conn  = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout( 100000 );
             conn.setConnectTimeout( 150000 );
