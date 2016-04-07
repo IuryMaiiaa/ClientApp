@@ -44,25 +44,20 @@ public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
     protected Usuario doInBackground(String... strings) {
         Usuario usuario = new Usuario();
         try {
-            Log.d("Client",urlChamadaServidor.getUrlUsuario() + getUsuarioUrl +"/"+email+"/"+senha);
             URL url = new URL(urlChamadaServidor.getUrlUsuario() + getUsuarioUrl +"/"+email+"/"+senha);
             HttpURLConnection conn  = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(100000);
-            conn.setConnectTimeout(150000);
-            conn.setRequestMethod("GET");
 
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+            InputStream in = conn.getInputStream();
 
-            conn.connect();
-            BufferedWriter we = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = rd.readLine()) != null) {
-                usuario = gson.fromJson(line,Usuario.class);
-            }
-            rd.close();
-            we.close();
+            InputStreamReader isw = new InputStreamReader(in);
+
+            BufferedReader br = new BufferedReader(isw);
+
+            String dado = br.readLine();
+
+            usuario = gson.fromJson(dado,Usuario.class);
+
+            br.close();
             conn.disconnect();
         } catch (ProtocolException e) {
             e.printStackTrace();
