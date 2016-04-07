@@ -25,9 +25,11 @@ public class UsuarioReferenciaCircular {
     }
 
     public Usuario adicionandoReferenciasCirculares(Usuario usuario) {
-        for(QuestGeolocalizada quest : usuario.getMinhasQuests()) {
-            quest.setUsuario(usuario);
-            quest = questsReferenciaCircular.adicionarReferencaisCirculares(quest);
+        if(usuario.getMinhasQuests() != null) {
+            for(QuestGeolocalizada quest : usuario.getMinhasQuests()) {
+                quest.setUsuario(usuario);
+                quest = questsReferenciaCircular.adicionarReferencaisCirculares(quest);
+            }
         }
         return usuario;
     }

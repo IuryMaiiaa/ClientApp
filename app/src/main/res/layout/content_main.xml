@@ -36,14 +36,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Email"
-            android:id="@+id/textView2" />
+            android:id="@+id/textViewEmailLogin" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences"
             android:ems="10"
-            android:id="@+id/latitude"
+            android:id="@+id/LoginEdit"
             android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -51,14 +51,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="senha"
-            android:id="@+id/textView" />
+            android:id="@+id/textViewSenhaLogin" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences"
             android:ems="10"
-            android:id="@+id/longitude" />
+            android:id="@+id/SenhaEdit" />
 
         <Button
             android:layout_width="wrap_content"

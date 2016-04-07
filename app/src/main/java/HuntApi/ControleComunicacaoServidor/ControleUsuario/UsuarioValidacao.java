@@ -1,22 +1,26 @@
 package HuntApi.ControleComunicacaoServidor.ControleUsuario;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
+import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
 import HuntApi.Model.Usuario;
 
 /**
@@ -24,12 +28,15 @@ import HuntApi.Model.Usuario;
  */
 public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
     private String email;
-    private int senha;
+    private String senha;
+    private String getUsuarioUrl = "getUsuario";
 
+    private UrlChamadaServidor urlChamadaServidor;
     private Gson gson;
 
     public UsuarioValidacao() {
         gson = new Gson();
+        urlChamadaServidor = new UrlChamadaServidor();
     }
 
 
@@ -37,7 +44,8 @@ public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
     protected Usuario doInBackground(String... strings) {
         Usuario usuario = new Usuario();
         try {
-            URL url = new URL(strings[0]+"/"+email+"/"+senha);
+            Log.d("Client",urlChamadaServidor.getUrlUsuario() + getUsuarioUrl +"/"+email+"/"+senha);
+            URL url = new URL(urlChamadaServidor.getUrlUsuario() + getUsuarioUrl +"/"+email+"/"+senha);
             HttpURLConnection conn  = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(100000);
             conn.setConnectTimeout(150000);
@@ -47,13 +55,14 @@ public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
             conn.setDoOutput(true);
 
             conn.connect();
-
+            BufferedWriter we = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = rd.readLine()) != null) {
                 usuario = gson.fromJson(line,Usuario.class);
             }
             rd.close();
+            we.close();
             conn.disconnect();
         } catch (ProtocolException e) {
             e.printStackTrace();
@@ -66,7 +75,7 @@ public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
         return usuario;
     }
 
-    public Usuario getUsuario(String url, String email, int senha) {
+    public Usuario getUsuario(String url, String email, String senha) {
         this.email = email;
         this.senha = senha;
         this.execute(url);

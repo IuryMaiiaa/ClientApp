@@ -25,7 +25,7 @@ public class UsuarioControllerGet extends AsyncTask<String, Void, String> {
         gson = new Gson();
     }
 
-    public Usuario getUsuario(String email,int senha) {
+    public Usuario getUsuario(String email,String senha) {
         UsuarioValidacao usarioValidacao = new UsuarioValidacao();
         Usuario usuario = usarioValidacao.getUsuario(urlServidor+urlUsuarioValidacao,email,senha);
         usuario = usuarioReferenciaCircular.adicionandoReferenciasCirculares(usuario);

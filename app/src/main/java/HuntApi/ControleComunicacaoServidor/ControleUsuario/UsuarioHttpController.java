@@ -26,4 +26,8 @@ public class UsuarioHttpController {
         usuarioControllerPost.updateUsuario(usuario);
     }
 
+    public Usuario validarUsuario(String email,String senha) {
+        return usuarioControllerGet.getUsuario(email,senha);
+    }
+
 }

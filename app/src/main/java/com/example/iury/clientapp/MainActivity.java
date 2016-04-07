@@ -15,7 +15,9 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao.CordenadasHttpController;
+import HuntApi.ControleInteracaoJogo.UsuarioControlers.UsuarioControlerInteracao;
 import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.Usuario;
 
 public class MainActivity extends AppCompatActivity implements DialogInterface.OnClickListener {
 
@@ -31,9 +33,18 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,RegistroActivity.class);
-                startActivity(intent);
-                finish();
+                UsuarioControlerInteracao usuarioControlerInteracao = new UsuarioControlerInteracao();
+                EditText valorCompoEmail = (EditText) findViewById(R.id.LoginEdit);
+                EditText valorCompoSenha = (EditText) findViewById(R.id.SenhaEdit);
+                Usuario usuario = usuarioControlerInteracao.validarUsuario(valorCompoEmail.getText().toString(),
+                                                                            valorCompoSenha.getText().toString());
+                if(usuario!= null) {
+                    Log.d("client",usuario.getEmail());
+                    Intent intent = new Intent(MainActivity.this,MapsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
 

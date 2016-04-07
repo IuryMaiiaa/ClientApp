@@ -16,4 +16,8 @@ public class UsuarioControlerInteracao {
     public void adicionarUsuario (Usuario usuario) {
         usuarioHttpController.adicionarUsuario(usuario);
     }
+
+    public Usuario validarUsuario(String email, String senha) {
+        return usuarioHttpController.validarUsuario(email,senha);
+    }
 }
