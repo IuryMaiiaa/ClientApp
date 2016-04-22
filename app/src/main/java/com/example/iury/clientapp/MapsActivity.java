@@ -7,6 +7,7 @@ import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import HuntApi.ControleGeolocalizacao.GoogleMaps.getGoogleServiceClient;
 import HuntApi.Model.CordenadaGeografica;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -25,16 +27,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private CordenadaGeografica cordenadaAtual;
     private GoogleApiClient mGoogleApiClient;
+    private getGoogleServiceClient getgoogleServiceClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        getgoogleServiceClient = new getGoogleServiceClient();
         cordenadaAtual = new CordenadaGeografica();
+        mGoogleApiClient = getgoogleServiceClient.getGoogleApiClient(this,this,this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    protected  void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
     }
 
 
@@ -59,6 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(Bundle bundle) {
+        Log.d("posicao","chego aqui");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -67,6 +83,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+
+
             return;
         }
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
@@ -75,6 +93,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             cordenadaAtual.setLat(mLastLocation.getLatitude());
             cordenadaAtual.setLon(mLastLocation.getLongitude());
         }
+        Log.d("posicao", cordenadaAtual.getLat() + " " + cordenadaAtual.getLon() + " cordenada");
+
+        LatLng Quixada = new LatLng(cordenadaAtual.getLat(), cordenadaAtual.getLon());
+        mMap.addMarker(new MarkerOptions().position(Quixada).title("Marcar Quixada"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(Quixada));
+
 
     }
 
