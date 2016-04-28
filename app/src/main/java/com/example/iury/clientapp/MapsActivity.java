@@ -33,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        setContentView(R.layout.fragment_maps);
         getgoogleServiceClient = new getGoogleServiceClient();
         cordenadaAtual = new CordenadaGeografica();
         mGoogleApiClient = getgoogleServiceClient.getGoogleApiClient(this,this,this);
