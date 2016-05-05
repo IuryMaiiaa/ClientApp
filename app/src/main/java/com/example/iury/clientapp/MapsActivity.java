@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import HuntApi.ControleGeolocalizacao.GoogleMaps.getGoogleServiceClient;
 import HuntApi.Model.CordenadaGeografica;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,mapsFragment.OnFragmentInteractionListener {
 
     private GoogleMap mMap;
     private CordenadaGeografica cordenadaAtual;
@@ -33,7 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        setContentView(R.layout.fragment_maps);
+        //setContentView(R.layout.fragment_maps);
         getgoogleServiceClient = new getGoogleServiceClient();
         cordenadaAtual = new CordenadaGeografica();
         mGoogleApiClient = getgoogleServiceClient.getGoogleApiClient(this,this,this);
@@ -110,6 +111,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
