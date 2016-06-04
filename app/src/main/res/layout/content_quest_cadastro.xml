@@ -16,37 +16,73 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Escolha Quantos Passos Tera Sua Quest"
-            android:id="@+id/textView" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Nome da quest"
+            android:id="@+id/QuestText"
+            android:layout_gravity="center_horizontal" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Descrição da Etapa"
+            android:id="@+id/DescricaoEtapaText" />
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/layoutLinerMaps"
-            android:layout_gravity="center_horizontal">
+            android:id="@+id/EditDescricaoEtapa"
+            android:layout_weight="0.19" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/editText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Dica(Opicional)"
+            android:id="@+id/DicaText" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editDica" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="PalavraChave"
+            android:id="@+id/PalavraChaveText" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editPalavraChave" />
+
+        <FrameLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="57dp">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirmar"
-                android:id="@+id/ConfirmacaoPassos" />
+                android:layout_gravity="left"
+                android:text="Concluir Quest"
+                android:id="@+id/ConcluirQuestButton"/>
 
-        </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Nova Etapa"
+                android:id="@+id/NotaEtapaButton" />
+        </FrameLayout>
 
     </LinearLayout>
 
