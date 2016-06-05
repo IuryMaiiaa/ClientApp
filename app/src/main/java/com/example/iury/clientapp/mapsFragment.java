@@ -74,7 +74,7 @@ public class mapsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d("fragment", "Chego Aqui");
-                Intent intent = new Intent(view.getContext(),QuestCadastro.class);
+                Intent intent = new Intent(view.getContext(),QuestEtapaCadastro.class);
                 startActivity(intent);
             }
         });

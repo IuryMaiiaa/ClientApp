@@ -1,6 +1,5 @@
 package com.example.iury.clientapp;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,12 +11,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class QuestCadastro extends AppCompatActivity {
+public class QuestEtapaCadastro extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quest_cadastro);
+        setContentView(R.layout.activity_quest_EtapaCadastro);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -26,8 +25,6 @@ public class QuestCadastro extends AppCompatActivity {
         confirmacao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //LinearLayout layout = (LinearLayout) view.inflate(view.getContext(), R.layout.activity_quest_cadastro,null);
 
                 LinearLayout layout = (LinearLayout) view.findViewById(R.id.layoutLinerMaps);
                 TextView NomeDoPasso = new TextView(view.getContext());
