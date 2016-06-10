@@ -1,5 +1,6 @@
 package com.example.iury.clientapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,10 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import HuntApi.ControleComunicacaoServidor.ControleQuest.QuestHttpController;
+import HuntApi.Model.Etapa;
+import HuntApi.Model.QuestGeolocalizada;
+
 public class QuestEtapaCadastro extends AppCompatActivity {
+    public static QuestGeolocalizada quest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,19 +27,30 @@ public class QuestEtapaCadastro extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button confirmacao = (Button) findViewById(R.id.ConfirmacaoPassos);
+        Button confirmacao = (Button) findViewById(R.id.ConcluirQuestButton);
         assert confirmacao != null;
         confirmacao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                adicionarEtapa(getIntent());
+                QuestHttpController questHttpController = new QuestHttpController();
+                questHttpController.adicionarQuest(quest);
+                Intent intent = new Intent(QuestEtapaCadastro.this,MapsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-                LinearLayout layout = (LinearLayout) view.findViewById(R.id.layoutLinerMaps);
-                TextView NomeDoPasso = new TextView(view.getContext());
-                NomeDoPasso.setLayoutParams(new ViewGroup.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-
-                layout.addView(NomeDoPasso);
-                setContentView(view);
+        Button NovaEtapa = (Button) findViewById(R.id.NotaEtapaButton);
+        assert NovaEtapa != null;
+        NovaEtapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adicionarEtapa(getIntent());
+                Intent intent = new Intent(QuestEtapaCadastro.this,QuestEtapaCadastro.class);
+                intent.putExtra("posicao",intent.getIntExtra("posicao",0)+1);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -45,5 +63,19 @@ public class QuestEtapaCadastro extends AppCompatActivity {
             }
         });
     }
+
+    public void adicionarEtapa(Intent intent) {
+        EditText editDescriEditText = (EditText) findViewById(R.id.EditDescricaoEtapa);
+        EditText editDica = (EditText) findViewById(R.id.editDica);
+        EditText editPalavraChave = (EditText) findViewById(R.id.editPalavraChave);
+        Etapa etapa = new Etapa();
+        etapa.setQuestGeolocalizada(quest);
+        etapa.setDescricao(editDescriEditText.getText().toString());
+        etapa.setDica(editDica.getText().toString());
+        etapa.setPalavraChave(editPalavraChave.getText().toString());
+        etapa.setPosicao(intent.getIntExtra("posicao",0));
+        quest.addEtapaPosicao(etapa,etapa.getPosicao());
+    }
+
 
 }

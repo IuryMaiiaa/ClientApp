@@ -7,9 +7,11 @@ import HuntApi.Model.Usuario;
  * Created by Iury on 4/3/2016.
  */
 public class UsuarioControlerInteracao {
-    UsuarioHttpController usuarioHttpController;
+    private UsuarioHttpController usuarioHttpController;
+    private static Usuario usuarioSessao;
 
     public UsuarioControlerInteracao () {
+        usuarioSessao = null;
         usuarioHttpController = new UsuarioHttpController();
     }
 
@@ -17,7 +19,13 @@ public class UsuarioControlerInteracao {
         usuarioHttpController.adicionarUsuario(usuario);
     }
 
-    public Usuario validarUsuario(String email, String senha) {
-        return usuarioHttpController.validarUsuario(email,senha);
+    public static Usuario validarUsuario(String email, String senha) {
+        UsuarioHttpController usuarioController = new UsuarioHttpController();
+        usuarioSessao = usuarioController.validarUsuario(email,senha);
+        return usuarioSessao;
+    }
+
+    public static Usuario getUsuarioSessao() {
+        return usuarioSessao;
     }
 }
