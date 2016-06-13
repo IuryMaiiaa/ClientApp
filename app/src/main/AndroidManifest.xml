@@ -49,12 +49,12 @@
             android:label="@string/title_activity_registro"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".QuestEtapaCadastro"
-            android:label="@string/title_activity_quest_cadastro"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".CadastroQuest"
             android:label="@string/title_activity_cadastro_quest"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".cadastroEtapa"
+            android:label="@string/title_activity_cadastro_etapa"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

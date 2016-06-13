@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".QuestEtapaCadastro"
-    tools:showIn="@layout/activity_quest_EtapaCadastro">
+    tools:context="com.example.iury.clientapp.cadastroEtapa"
+    tools:showIn="@layout/activity_cadastro_etapa">
 
     <LinearLayout
         android:orientation="vertical"
@@ -85,5 +85,4 @@
         </FrameLayout>
 
     </LinearLayout>
-
 </RelativeLayout>

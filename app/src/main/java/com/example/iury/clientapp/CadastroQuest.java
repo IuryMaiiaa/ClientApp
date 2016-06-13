@@ -36,8 +36,8 @@ public class CadastroQuest extends AppCompatActivity {
                     quest.setNome(editName.getText().toString());
                     quest.setDescricao(editDescricao.getText().toString());
                     quest.setUsuario(UsuarioControlerInteracao.getUsuarioSessao());
-                    Intent intent = new Intent(CadastroQuest.this,QuestEtapaCadastro.class);
-                    QuestEtapaCadastro.quest = quest;
+                    Intent intent = new Intent(CadastroQuest.this,cadastroEtapa.class);
+                    cadastroEtapa.quest = quest;
                     intent.putExtra("posicao",0);
                     startActivity(intent);
                     finish();

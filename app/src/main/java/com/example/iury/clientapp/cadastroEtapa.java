@@ -7,23 +7,20 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import HuntApi.ControleComunicacaoServidor.ControleQuest.QuestHttpController;
 import HuntApi.Model.Etapa;
 import HuntApi.Model.QuestGeolocalizada;
 
-public class QuestEtapaCadastro extends AppCompatActivity {
+public class cadastroEtapa extends AppCompatActivity {
     public static QuestGeolocalizada quest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quest_EtapaCadastro);
+        setContentView(R.layout.activity_cadastro_etapa);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,7 +32,7 @@ public class QuestEtapaCadastro extends AppCompatActivity {
                 adicionarEtapa(getIntent());
                 QuestHttpController questHttpController = new QuestHttpController();
                 questHttpController.adicionarQuest(quest);
-                Intent intent = new Intent(QuestEtapaCadastro.this,MapsActivity.class);
+                Intent intent = new Intent(cadastroEtapa.this,MapsActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -47,7 +44,7 @@ public class QuestEtapaCadastro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 adicionarEtapa(getIntent());
-                Intent intent = new Intent(QuestEtapaCadastro.this,QuestEtapaCadastro.class);
+                Intent intent = new Intent(cadastroEtapa.this,cadastroEtapa.class);
                 intent.putExtra("posicao",intent.getIntExtra("posicao",0)+1);
                 startActivity(intent);
                 finish();
@@ -76,6 +73,5 @@ public class QuestEtapaCadastro extends AppCompatActivity {
         etapa.setPosicao(intent.getIntExtra("posicao",0));
         quest.addEtapaPosicao(etapa,etapa.getPosicao());
     }
-
 
 }
