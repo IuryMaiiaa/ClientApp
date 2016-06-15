@@ -1,5 +1,7 @@
 package HuntApi.ControleComunicacaoServidor.ControleUsuario;
 
+import android.util.Log;
+
 import HuntApi.Model.Usuario;
 
 /**

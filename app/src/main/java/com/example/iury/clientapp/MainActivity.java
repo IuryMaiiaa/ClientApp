@@ -38,11 +38,14 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                 EditText valorCompoSenha = (EditText) findViewById(R.id.SenhaEdit);
                 Usuario usuario = usuarioControlerInteracao.validarUsuario(valorCompoEmail.getText().toString(),
                                                                             valorCompoSenha.getText().toString());
+
                 if(usuario!= null) {
                     Log.d("client",usuario.getEmail());
                     Intent intent = new Intent(MainActivity.this,MapsActivity.class);
                     startActivity(intent);
                     finish();
+                } else {
+                    Log.d("client","usuario nulo");
                 }
 
             }

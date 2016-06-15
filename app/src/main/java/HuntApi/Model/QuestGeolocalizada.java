@@ -1,5 +1,6 @@
 package HuntApi.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,10 @@ public class QuestGeolocalizada {
     private CordenadaGeografica cordenada;
 
     private String descricao;
+
+    public QuestGeolocalizada() {
+        etapas = new ArrayList<Etapa>();
+    }
 
     public String getDescricao() {
         return descricao;

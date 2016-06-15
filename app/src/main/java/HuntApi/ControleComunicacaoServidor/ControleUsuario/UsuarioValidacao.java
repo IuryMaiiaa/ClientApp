@@ -73,6 +73,7 @@ public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
     public Usuario getUsuario(String url, String email, String senha) {
         this.email = email;
         this.senha = senha;
+        Log.d("client","usuario nulo");
         this.execute(url);
         Usuario usuario = new Usuario();
 

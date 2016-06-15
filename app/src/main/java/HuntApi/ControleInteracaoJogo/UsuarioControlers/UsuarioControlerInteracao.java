@@ -1,5 +1,7 @@
 package HuntApi.ControleInteracaoJogo.UsuarioControlers;
 
+import android.util.Log;
+
 import HuntApi.ControleComunicacaoServidor.ControleUsuario.UsuarioHttpController;
 import HuntApi.Model.Usuario;
 
@@ -20,8 +22,10 @@ public class UsuarioControlerInteracao {
     }
 
     public static Usuario validarUsuario(String email, String senha) {
+
         UsuarioHttpController usuarioController = new UsuarioHttpController();
         usuarioSessao = usuarioController.validarUsuario(email,senha);
+        Log.d("client",usuarioSessao.getEmail() + " " + usuarioSessao.getSenha());
         return usuarioSessao;
     }
 

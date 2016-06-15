@@ -1,6 +1,7 @@
 package HuntApi.ControleComunicacaoServidor.ControleQuest;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -72,7 +73,7 @@ public class QuestControllerPost extends AsyncTask<String, Void, String> {
             conn.setRequestProperty("X-Requested-With", "XMLHttpRequest");
 
             conn.connect();
-
+            Log.d("quest","quest nome: " + quest.getNome() + " Url: " + conn.getURL().toString());
             OutputStream wr = new BufferedOutputStream(conn.getOutputStream());
             wr.write(message.getBytes());
             wr.flush();
