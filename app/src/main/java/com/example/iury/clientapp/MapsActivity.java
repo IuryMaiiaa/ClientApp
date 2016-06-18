@@ -45,12 +45,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     protected  void onStart() {
-        mGoogleApiClient.connect();
+        getgoogleServiceClient.GoogleApiConnect();
         super.onStart();
     }
 
     protected void onStop() {
-        mGoogleApiClient.disconnect();
+        getgoogleServiceClient.GoogleApiDisconnet();
         super.onStop();
     }
 
@@ -72,6 +72,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        getgoogleServiceClient.addGoogleMaps(mMap);
+    }
+
+    public Location getMyLocation() {
+        Log.d("posicao","chego aqui");
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+
+            return mLastLocation;
+        }
+        if (mLastLocation != null) {
+            cordenadaAtual.setLat(mLastLocation.getLatitude());
+            cordenadaAtual.setLon(mLastLocation.getLongitude());
+        }
+        return mLastLocation;
     }
 
     @Override

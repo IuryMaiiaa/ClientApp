@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import HuntApi.ControleGeolocalizacao.GoogleMaps.getGoogleServiceClient;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,7 +75,6 @@ public class mapsFragment extends Fragment {
         adicionarQuest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("fragment", "Chego Aqui");
                 Intent intent = new Intent(view.getContext(),CadastroQuest.class);
                 startActivity(intent);
             }
