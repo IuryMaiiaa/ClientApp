@@ -5,7 +5,7 @@ package HuntApi.Model;
  */
 public class CordenadaGeografica {
 
-    private int ID;
+    private int id;
     private double lat;
     private double lon;
 
@@ -20,10 +20,10 @@ public class CordenadaGeografica {
 
 
     public int getID() {
-        return ID;
+        return id;
     }
     public void setID(int iD) {
-        ID = iD;
+        id = iD;
     }
 
 
