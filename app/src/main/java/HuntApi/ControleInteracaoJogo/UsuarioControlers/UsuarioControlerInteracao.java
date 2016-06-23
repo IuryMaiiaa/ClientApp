@@ -13,7 +13,6 @@ public class UsuarioControlerInteracao {
     private static Usuario usuarioSessao;
 
     public UsuarioControlerInteracao () {
-        usuarioSessao = null;
         usuarioHttpController = new UsuarioHttpController();
     }
 
@@ -25,11 +24,15 @@ public class UsuarioControlerInteracao {
 
         UsuarioHttpController usuarioController = new UsuarioHttpController();
         usuarioSessao = usuarioController.validarUsuario(email,senha);
-        Log.d("client",usuarioSessao.getEmail() + " " + usuarioSessao.getSenha());
         return usuarioSessao;
     }
 
     public static Usuario getUsuarioSessao() {
+        Log.d("usuario",usuarioSessao.getEmail() + " " + usuarioSessao.getSenha());
         return usuarioSessao;
+    }
+
+    public static void atulizarUsuarioSessao() {
+        usuarioSessao = validarUsuario(usuarioSessao.getEmail(),usuarioSessao.getSenha());
     }
 }

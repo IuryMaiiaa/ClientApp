@@ -90,7 +90,7 @@ public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbac
 
             return;
         }
-        Log.d("cordenada", posicaoAtual.getLat() + " " + posicaoAtual.getLon());
+
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         //LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);

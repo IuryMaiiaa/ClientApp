@@ -96,4 +96,11 @@ public class Usuario {
         this.cep = cep;
     }
 
+    public String toString() {
+        String usuarioString = new String();
+        usuarioString = " " + this.getName();
+        usuarioString = " " + this.getSenha();
+        return usuarioString;
+    }
+
 }

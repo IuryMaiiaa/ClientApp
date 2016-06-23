@@ -1,5 +1,7 @@
 package HuntApi.ControleGeolocalizacao.GoogleMaps;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -18,9 +20,15 @@ public class GerenciadorDeMarcadores {
     private GoogleMap mapa;
 
     public GoogleMap addQuestMarcadoresMapaUsuario(GoogleMap map, Usuario usuario) {
-        for (QuestGeolocalizada quest : usuario.getMinhasQuests()) {
-            map = adicionarQuestPontos(map,quest);
+        if(usuario != null) {
+            for (QuestGeolocalizada quest : usuario.getMinhasQuests()) {
+                Log.d("usuario","chego aqui " + quest.getNome());
+                map = adicionarQuestPontos(map,quest);
+            }
+        } else {
+            Log.d("usuario","usuario nome: "+ usuario.getName());
         }
+
         return map;
     }
 
@@ -31,7 +39,7 @@ public class GerenciadorDeMarcadores {
         return map;
     }
 
-    public void addQuestProcimas(float raio, CordenadaGeografica cordenadaGeografica) {
+    public void addQuestProcimasMap(float raio, CordenadaGeografica cordenadaGeografica) {
 
     }
 

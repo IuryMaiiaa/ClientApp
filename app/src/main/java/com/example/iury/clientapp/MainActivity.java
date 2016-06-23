@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                 Usuario usuario = usuarioControlerInteracao.validarUsuario(valorCompoEmail.getText().toString(),
                                                                             valorCompoSenha.getText().toString());
 
-                if(usuario!= null) {
-                    Log.d("client",usuario.getEmail());
+                if(usuario != null) {
+                    Log.d("usuario",usuario.getEmail() + "passou por aqui");
                     Intent intent = new Intent(MainActivity.this,MapsActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    Log.d("client","usuario nulo");
+
                 }
 
             }

@@ -56,7 +56,7 @@ public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
             String dado = br.readLine();
 
             usuario = gson.fromJson(dado,Usuario.class);
-
+            Log.d("usuario", usuario.getMinhasQuests().get(0).getNome());
             br.close();
             conn.disconnect();
         } catch (ProtocolException e) {
@@ -73,7 +73,6 @@ public class UsuarioValidacao extends AsyncTask<String, Void, Usuario> {
     public Usuario getUsuario(String url, String email, String senha) {
         this.email = email;
         this.senha = senha;
-        Log.d("client","usuario nulo");
         this.execute(url);
         Usuario usuario = new Usuario();
 

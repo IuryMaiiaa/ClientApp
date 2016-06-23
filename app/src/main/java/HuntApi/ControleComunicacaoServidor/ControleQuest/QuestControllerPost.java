@@ -56,7 +56,7 @@ public class QuestControllerPost extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        quest = questReferenciaCircular.removendoReferenciasCirculares(quest);
+        quest = questReferenciaCircular.removendoReferenciaCircularListUsuario(quest);
         String message = gson.toJson(quest);
         try {
             URL url = new URL(urlServidor.getUrlQuest() + strings[0]);
