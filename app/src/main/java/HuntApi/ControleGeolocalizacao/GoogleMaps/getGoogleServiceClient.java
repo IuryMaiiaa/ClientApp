@@ -106,6 +106,7 @@ public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbac
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         iniciaAtualizacaoPosicoes();
+        atualizarMapa(maps);
     }
 
     public void iniciaAtualizacaoPosicoes() {
@@ -132,12 +133,20 @@ public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbac
 
     }
 
+    public GoogleMap atualizarMapa(GoogleMap map) {
+        LatLng posicao = new LatLng(posicaoAtual.getLat(), posicaoAtual.getLon());
+        map.addMarker(new MarkerOptions().position(posicao).title("Sua Localizacao"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(posicao));
+        return map;
+    }
+
     @Override
     public void onLocationChanged(Location location) {
         Log.d("cordenada", location.getLatitude() + " " + location.getLongitude());
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         atualizaPosicao();
+        atualizarMapa(maps);
     }
 
     public void atualizaPosicao() {
