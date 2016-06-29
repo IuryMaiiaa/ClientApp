@@ -125,7 +125,6 @@ public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbac
         Log.d("posicao","chego aqui location request");
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mRequestLocation, this);
         getPermissoesPosicao();
-
     }
 
     @Override
