@@ -2,9 +2,15 @@ package HuntApi.ControleGeolocalizacao.GoogleMaps;
 
 import android.util.Log;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.AvoidType;
+import com.akexorcist.googledirection.model.Direction;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
 
@@ -36,6 +42,34 @@ public class GerenciadorDeMarcadores {
         for(QuestGeolocalizada quest : questGeolocalizadas) {
             map = adicionarQuestPontos(map,quest);
         }
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                CordenadaGeografica cordenadaAtual = getGoogleServiceClient.getPosicaoAtual();
+                LatLng posicaoAtual = new LatLng(cordenadaAtual.getLat(), cordenadaAtual.getLon());
+                GoogleDirection.withServerKey("AIzaSyCnRSH_4g45uAVNKePEI8H1Zz7abNJ1dFw")
+                        .from(posicaoAtual)
+                        .to(marker.getPosition())
+                        .avoid(AvoidType.FERRIES)
+                        .avoid(AvoidType.HIGHWAYS)
+                        .execute(new DirectionCallback() {
+                            @Override
+                            public void onDirectionSuccess(Direction direction, String rawBody) {
+                                if(direction.isOK()) {
+                                    // Do something
+                                } else {
+                                    // Do something
+                                }
+                            }
+
+                            @Override
+                            public void onDirectionFailure(Throwable t) {
+                                // Do something
+                            }
+                        });
+                return false;
+            }
+        });
         return map;
     }
 
@@ -48,6 +82,7 @@ public class GerenciadorDeMarcadores {
         map.addMarker(new MarkerOptions().position(latLng)
                                          .title(quest.getNome())
                                          .flat(true));
+
         return map;
     }
 }

@@ -58,12 +58,15 @@ public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbac
         this.maps = maps;
     }
 
+    public static GoogleMap getGoogleMaps() {
+        return maps;
+    }
+
     public void GoogleApiConnect() {
 
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
-
     }
 
     public void GoogleApiDisconnet() {
