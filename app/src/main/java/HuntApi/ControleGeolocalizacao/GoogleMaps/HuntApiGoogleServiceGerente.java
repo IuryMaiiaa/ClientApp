@@ -30,7 +30,7 @@ import HuntApi.Model.CordenadaGeografica;
 /**
  * Created by Iury on 4/15/2016.
  */
-public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class HuntApiGoogleServiceGerente implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static GoogleApiClient mGoogleApiClient;
     private static MapsActivity mapsActivity;
@@ -109,10 +109,10 @@ public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbac
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         iniciaAtualizacaoPosicoes();
-        atualizarMapa(maps);
+        MoverCameraMapa(maps);
     }
 
-    public void iniciaAtualizacaoPosicoes() {
+    private void iniciaAtualizacaoPosicoes() {
         mRequestLocation = new LocationRequest();
 
         if (ActivityCompat.checkSelfPermission(mapsActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mapsActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -135,9 +135,8 @@ public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbac
 
     }
 
-    public GoogleMap atualizarMapa(GoogleMap map) {
+    public GoogleMap MoverCameraMapa(GoogleMap map) {
         LatLng posicao = new LatLng(posicaoAtual.getLat(), posicaoAtual.getLon());
-        map.addMarker(new MarkerOptions().position(posicao).title("Sua Localizacao"));
         map.moveCamera(CameraUpdateFactory.newLatLng(posicao));
         return map;
     }
@@ -148,7 +147,7 @@ public class getGoogleServiceClient implements GoogleApiClient.ConnectionCallbac
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         atualizaPosicao();
-        atualizarMapa(maps);
+        MoverCameraMapa(maps);
     }
 
     public void atualizaPosicao() {

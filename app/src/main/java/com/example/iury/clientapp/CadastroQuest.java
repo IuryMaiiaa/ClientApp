@@ -10,9 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-
-import HuntApi.ControleGeolocalizacao.GoogleMaps.getGoogleServiceClient;
+import HuntApi.ControleGeolocalizacao.GoogleMaps.HuntApiGoogleServiceGerente;
 import HuntApi.ControleInteracaoJogo.UsuarioControlers.UsuarioControlerInteracao;
 import HuntApi.Model.QuestGeolocalizada;
 
@@ -37,7 +35,7 @@ public class CadastroQuest extends AppCompatActivity {
                     quest.setNome(editName.getText().toString());
                     quest.setDescricao(editDescricao.getText().toString());
                     quest.setUsuario(UsuarioControlerInteracao.getUsuarioSessao());
-                    quest.setCordenada(getGoogleServiceClient.getPosicaoAtual());
+                    quest.setCordenada(HuntApiGoogleServiceGerente.getPosicaoAtual());
                     Intent intent = new Intent(CadastroQuest.this,cadastroEtapa.class);
                     cadastroEtapa.quest = quest;
                     intent.putExtra("posicao",0);

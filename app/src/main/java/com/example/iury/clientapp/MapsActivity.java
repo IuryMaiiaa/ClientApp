@@ -1,29 +1,20 @@
 package com.example.iury.clientapp;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import HuntApi.ControleGeolocalizacao.GoogleMaps.GerenciadorDeMarcadores;
-import HuntApi.ControleGeolocalizacao.GoogleMaps.getGoogleServiceClient;
+import HuntApi.ControleGeolocalizacao.GoogleMaps.HuntApiGoogleServiceGerente;
 import HuntApi.ControleInteracaoJogo.UsuarioControlers.UsuarioControlerInteracao;
 import HuntApi.Model.CordenadaGeografica;
 
@@ -32,14 +23,16 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
     private GoogleMap mMap;
     private CordenadaGeografica cordenadaAtual;
     private GoogleApiClient mGoogleApiClient;
-    private getGoogleServiceClient getgoogleServiceClient;
+    private HuntApiGoogleServiceGerente huntApiGoogleServiceGerente;
     private Location mLocationRequest;
     private GerenciadorDeMarcadores gerenciadorDeMarcadores;
 
     public MapsActivity() {
         super();
-        getgoogleServiceClient = new getGoogleServiceClient();
+        huntApiGoogleServiceGerente = new HuntApiGoogleServiceGerente();
         gerenciadorDeMarcadores = new GerenciadorDeMarcadores();
+        cordenadaAtual = new CordenadaGeografica();
+
     }
 
     @Override
@@ -48,8 +41,9 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
         //setContentView(R.layout.fragment_maps);
 
-        cordenadaAtual = new CordenadaGeografica();
-        mGoogleApiClient = getgoogleServiceClient.getGoogleApiClient(this);
+
+        huntApiGoogleServiceGerente.getGoogleApiClient(this);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -57,12 +51,12 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
     }
 
     protected  void onStart() {
-        getgoogleServiceClient.GoogleApiConnect();
+        huntApiGoogleServiceGerente.GoogleApiConnect();
         super.onStart();
     }
 
     protected void onStop() {
-        getgoogleServiceClient.GoogleApiDisconnet();
+        huntApiGoogleServiceGerente.GoogleApiDisconnet();
         super.onStop();
     }
 
@@ -79,12 +73,11 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
-        //getgoogleServiceClient.atualizarMapa(mMap);
+        //getgoogleServiceGerente.atualizarMapa(mMap);
         UsuarioControlerInteracao.atulizarUsuarioSessao();
-        gerenciadorDeMarcadores.addQuestMarcadoresMapaUsuario(googleMap, UsuarioControlerInteracao.getUsuarioSessao());
-        getgoogleServiceClient.addGoogleMaps(mMap);
+        gerenciadorDeMarcadores.addQuestUsuarioMapa(googleMap, UsuarioControlerInteracao.getUsuarioSessao());
+        huntApiGoogleServiceGerente.addGoogleMaps(mMap);
     }
 
     @Override
@@ -129,7 +122,7 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
         mMap.addMarker(new MarkerOptions().position(Quixada).title("Marcar Quixada"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Quixada));
 
-        getgoogleServiceClient.onConnected(bundle);
+        getgoogleServiceGerente.onConnected(bundle);
     }
 
     @Override

@@ -19,6 +19,7 @@ import HuntApi.Model.CordenadaGeografica;
  * Created by Iury on 3/24/2016.
  */
 public class BuscaCordenadaProximas extends AsyncTask<String, Void, ArrayList> {
+    private static String urlListarProximas = "listarProximas";
 
     public BuscaCordenadaProximas() {
 

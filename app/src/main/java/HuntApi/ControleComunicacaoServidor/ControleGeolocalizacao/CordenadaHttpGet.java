@@ -17,14 +17,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
+import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
 import HuntApi.Model.CordenadaGeografica;
 
 /**
  * Created by Iury on 1/2/2016.
  */
 public class CordenadaHttpGet extends AsyncTask<String, Void, ArrayList> {
+    public static String urlListarTodas = "listarTodos";
 
+    private UrlChamadaServidor urlServidor;
+
+    public CordenadaHttpGet() {
+        urlServidor = new UrlChamadaServidor();
+    }
     @Override
     protected ArrayList doInBackground(String... strings) {
         URL url;
@@ -77,6 +85,21 @@ public class CordenadaHttpGet extends AsyncTask<String, Void, ArrayList> {
             e.printStackTrace();
         }
 
+        return cordenadas;
+    }
+
+    public ArrayList<CordenadaGeografica> getTodasCordenadas() {
+
+        ArrayList<CordenadaGeografica> cordenadas = new ArrayList<CordenadaGeografica>();
+        this.execute(urlServidor.getUrlCordenada() + urlListarTodas);
+
+        try {
+            cordenadas = this.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return cordenadas;
     }
 

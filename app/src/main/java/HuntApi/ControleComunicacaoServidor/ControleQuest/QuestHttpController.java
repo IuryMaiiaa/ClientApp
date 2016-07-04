@@ -1,5 +1,8 @@
 package HuntApi.ControleComunicacaoServidor.ControleQuest;
 
+import java.util.ArrayList;
+
+import HuntApi.Model.CordenadaGeografica;
 import HuntApi.Model.QuestGeolocalizada;
 
 /**
@@ -24,4 +27,13 @@ public class QuestHttpController {
     public void atualizarQuest(QuestGeolocalizada quest) {
         questControllerPost.atualizarQuest(quest);
     }
+
+    public ArrayList<QuestGeolocalizada> listarTodas() {
+        return questControllerGet.getTodasQuest();
+    }
+
+    public ArrayList<QuestGeolocalizada> listarProximas(CordenadaGeografica cordenada,int raio) {
+        return  questControllerGet.getQuestProxima(cordenada,raio);
+    }
+
 }

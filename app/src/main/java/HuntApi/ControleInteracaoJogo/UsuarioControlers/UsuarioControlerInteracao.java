@@ -35,4 +35,12 @@ public class UsuarioControlerInteracao {
     public static void atulizarUsuarioSessao() {
         usuarioSessao = validarUsuario(usuarioSessao.getEmail(),usuarioSessao.getSenha());
     }
+
+    public void removerUsuario(Usuario usuario) {
+        usuarioHttpController.removerUsuario(usuario);
+    }
+
+    public void updateUsuario(Usuario usuairo) {
+        usuarioHttpController.updateUsuario(usuairo);
+    }
 }

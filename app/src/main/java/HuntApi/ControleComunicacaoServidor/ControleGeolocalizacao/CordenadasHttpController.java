@@ -22,21 +22,15 @@ public class CordenadasHttpController {
 
     public ArrayList<CordenadaGeografica> getTodasCordenadas() {
 
-        ArrayList<CordenadaGeografica> cordenadas = new ArrayList<CordenadaGeografica>();
-        cordenadaHttpGet.execute(urlServidor.getUrlCordenada() + "listarTodos");
-
-        try {
-            cordenadas = cordenadaHttpGet.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return cordenadas;
+        return cordenadaHttpGet.getTodasCordenadas();
     }
 
     public void adicionarCordenada(CordenadaGeografica cordenada) {
         cordenadaHttpPost.addCordenada(cordenada);
+    }
+
+    public void removerCordenada(CordenadaGeografica cordenada) {
+        cordenadaHttpPost.removeCordenada(cordenada);
     }
 
 }
