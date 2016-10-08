@@ -27,7 +27,9 @@ public class GerenciadorDeMarcadores {
     public GoogleMap addQuestUsuarioMapa (GoogleMap map, Usuario usuario) {
         if (usuario != null) {
             for (QuestGeolocalizada quest : usuario.getMinhasQuests()) {
-                map = addQuestMapa(map, quest);
+                if (quest != null) {
+                    map = addQuestMapa(map, quest);
+                }
             }
         } else {
             Log.d("usuario", "usuario nome: " + usuario.getName());
@@ -40,8 +42,11 @@ public class GerenciadorDeMarcadores {
                                                         GoogleMap.OnMarkerClickListener onMarkerClickListener) {
 
         for (QuestGeolocalizada quest : questGeolocalizadas) {
-            map = addQuestMapa(map, quest);
-            map.setOnMarkerClickListener(onMarkerClickListener);
+            if (quest != null) {
+                map = addQuestMapa(map, quest);
+                map.setOnMarkerClickListener(onMarkerClickListener);
+            }
+
         }
 
         return map;
@@ -50,52 +55,57 @@ public class GerenciadorDeMarcadores {
 
     public GoogleMap addQuestMapa(GoogleMap map, List<QuestGeolocalizada> questGeolocalizadas) {
         for (QuestGeolocalizada quest : questGeolocalizadas) {
-            map = addQuestMapa(map, quest);
+            if (quest != null) {
+                map = addQuestMapa(map, quest);
+            }
         }
         return map;
     }
 
     public GoogleMap addQuestMapaComRota(GoogleMap map, List<QuestGeolocalizada> questGeolocalizadas) {
         for (QuestGeolocalizada quest : questGeolocalizadas) {
-            map = addQuestMapa(map, quest);
-            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    CordenadaGeografica cordenadaAtual = HuntApiGoogleServiceGerente.getPosicaoAtual();
-                    LatLng posicaoAtual = new LatLng(cordenadaAtual.getLat(), cordenadaAtual.getLon());
-                    GoogleDirection.withServerKey("AIzaSyCnRSH_4g45uAVNKePEI8H1Zz7abNJ1dFw")
-                            .from(posicaoAtual)
-                            .to(marker.getPosition())
-                            .avoid(AvoidType.FERRIES)
-                            .avoid(AvoidType.HIGHWAYS)
-                            .execute(new DirectionCallback() {
-                                @Override
-                                public void onDirectionSuccess(Direction direction, String rawBody) {
-                                    if (direction.isOK()) {
-                                        // Do something
-                                    } else {
+            if (quest != null) {
+                map = addQuestMapa(map, quest);
+                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        CordenadaGeografica cordenadaAtual = HuntApiGoogleServiceGerente.getPosicaoAtual();
+                        LatLng posicaoAtual = new LatLng(cordenadaAtual.getLat(), cordenadaAtual.getLon());
+                        GoogleDirection.withServerKey("AIzaSyCnRSH_4g45uAVNKePEI8H1Zz7abNJ1dFw")
+                                .from(posicaoAtual)
+                                .to(marker.getPosition())
+                                .avoid(AvoidType.FERRIES)
+                                .avoid(AvoidType.HIGHWAYS)
+                                .execute(new DirectionCallback() {
+                                    @Override
+                                    public void onDirectionSuccess(Direction direction, String rawBody) {
+                                        if (direction.isOK()) {
+                                            // Do something
+                                        } else {
+                                            // Do something
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onDirectionFailure(Throwable t) {
                                         // Do something
                                     }
-                                }
-
-                                @Override
-                                public void onDirectionFailure(Throwable t) {
-                                    // Do something
-                                }
-                            });
-                    return false;
-                }
-            });
+                                });
+                        return false;
+                    }
+                });
+            }
         }
         return map;
     }
 
     public GoogleMap addQuestMapa(GoogleMap map, QuestGeolocalizada quest) {
-        LatLng latLng = new LatLng(quest.getCordenada().getLat(),quest.getCordenada().getLon());
-        map.addMarker(new MarkerOptions().position(latLng)
-                                         .title(quest.getNome())
-                                         .flat(true));
-
+        if (quest != null) {
+            LatLng latLng = new LatLng(quest.getCordenada().getLat(),quest.getCordenada().getLon());
+            map.addMarker(new MarkerOptions().position(latLng)
+                    .title(quest.getNome())
+                    .flat(true));
+        }
         return map;
     }
 }

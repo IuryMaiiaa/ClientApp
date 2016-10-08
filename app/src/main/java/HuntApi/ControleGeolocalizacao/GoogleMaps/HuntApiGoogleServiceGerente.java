@@ -24,8 +24,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
+import HuntApi.ControleComunicacaoServidor.ControleQuest.QuestHttpController;
 import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.QuestGeolocalizada;
 
 /**
  * Created by Iury on 4/15/2016.
@@ -110,6 +113,7 @@ public class HuntApiGoogleServiceGerente implements GoogleApiClient.ConnectionCa
     public void onConnected(@Nullable Bundle bundle) {
         iniciaAtualizacaoPosicoes();
         MoverCameraMapa(maps);
+        Log.d("aqui","onconeccted");
     }
 
     private void iniciaAtualizacaoPosicoes() {
@@ -128,6 +132,7 @@ public class HuntApiGoogleServiceGerente implements GoogleApiClient.ConnectionCa
         Log.d("posicao","chego aqui location request");
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mRequestLocation, this);
         getPermissoesPosicao();
+        atualizarMarcadores();
     }
 
     @Override
@@ -148,9 +153,20 @@ public class HuntApiGoogleServiceGerente implements GoogleApiClient.ConnectionCa
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         atualizaPosicao();
         MoverCameraMapa(maps);
+        atualizarMarcadores();
+    }
+
+    public void atualizarMarcadores() {
+        QuestHttpController questHttpController = new QuestHttpController();
+        GerenciadorDeMarcadores gerenciadorDeMarcadores = new GerenciadorDeMarcadores();
+        CordenadaGeografica cordena = HuntApiGoogleServiceGerente.getPosicaoAtual();
+        Log.d("cordenada","" + cordena.getLat() + " " + cordena.getLon());
+        List<QuestGeolocalizada> quests = questHttpController.listarProximas(cordena,10000);
+        gerenciadorDeMarcadores.addQuestMapa( maps,quests);
     }
 
     public void atualizaPosicao() {
+        getPermissoesPosicao();
         posicaoAtual = new CordenadaGeografica();
         posicaoAtual.setLat(mCurrentLocation.getLatitude());
         posicaoAtual.setLon(mCurrentLocation.getLongitude());
