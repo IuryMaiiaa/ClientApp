@@ -1,7 +1,6 @@
 package HuntApi.ControleGeolocalizacao.GoogleMaps;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,16 +17,14 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 import HuntApi.ControleComunicacaoServidor.ControleQuest.QuestHttpController;
-import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.CoordenadaGeografica;
 import HuntApi.Model.QuestGeolocalizada;
 
 /**
@@ -37,7 +34,7 @@ public class HuntApiGoogleServiceGerente implements GoogleApiClient.ConnectionCa
 
     private static GoogleApiClient mGoogleApiClient;
     private static MapsActivity mapsActivity;
-    private static CordenadaGeografica posicaoAtual;
+    private static CoordenadaGeografica posicaoAtual;
     private static GoogleMap maps;
 
     private LocationRequest mRequestLocation;
@@ -78,12 +75,12 @@ public class HuntApiGoogleServiceGerente implements GoogleApiClient.ConnectionCa
         }
     }
 
-    public static CordenadaGeografica getPosicaoAtual() {
+    public static CoordenadaGeografica getPosicaoAtual() {
         return posicaoAtual;
     }
 
     private static void getPermissoesPosicao() {
-        posicaoAtual = new CordenadaGeografica();
+        posicaoAtual = new CoordenadaGeografica();
 
         if (ActivityCompat.checkSelfPermission(mapsActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mapsActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -159,15 +156,14 @@ public class HuntApiGoogleServiceGerente implements GoogleApiClient.ConnectionCa
     public void atualizarMarcadores() {
         QuestHttpController questHttpController = new QuestHttpController();
         GerenciadorDeMarcadores gerenciadorDeMarcadores = new GerenciadorDeMarcadores();
-        CordenadaGeografica cordena = HuntApiGoogleServiceGerente.getPosicaoAtual();
-        Log.d("cordenada","" + cordena.getLat() + " " + cordena.getLon());
+        CoordenadaGeografica cordena = HuntApiGoogleServiceGerente.getPosicaoAtual();
         List<QuestGeolocalizada> quests = questHttpController.listarProximas(cordena,10000);
         gerenciadorDeMarcadores.addQuestMapa( maps,quests);
     }
 
     public void atualizaPosicao() {
         getPermissoesPosicao();
-        posicaoAtual = new CordenadaGeografica();
+        posicaoAtual = new CoordenadaGeografica();
         posicaoAtual.setLat(mCurrentLocation.getLatitude());
         posicaoAtual.setLon(mCurrentLocation.getLongitude());
     }

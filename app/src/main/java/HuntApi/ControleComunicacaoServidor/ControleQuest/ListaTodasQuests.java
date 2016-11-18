@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 
 import HuntApi.ControleComunicacaoServidor.Utilities.QuestReferenciaCircular;
 import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
-import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.CoordenadaGeografica;
 import HuntApi.Model.QuestGeolocalizada;
 
 /**
@@ -44,7 +44,7 @@ public class ListaTodasQuests extends AsyncTask<String, Void, List<QuestGeolocal
         quests = new ArrayList<QuestGeolocalizada>();
     }
 
-    public List<QuestGeolocalizada> listarProximas(CordenadaGeografica cordenadaGeografica,int raio) {
+    public List<QuestGeolocalizada> listarProximas(CoordenadaGeografica coordenadaGeografica, int raio) {
         this.execute(urlListarTodas);
 
         try {

@@ -13,7 +13,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
-import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.CoordenadaGeografica;
 import HuntApi.Model.QuestGeolocalizada;
 import HuntApi.Model.Usuario;
 
@@ -69,7 +69,7 @@ public class GerenciadorDeMarcadores {
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        CordenadaGeografica cordenadaAtual = HuntApiGoogleServiceGerente.getPosicaoAtual();
+                        CoordenadaGeografica cordenadaAtual = HuntApiGoogleServiceGerente.getPosicaoAtual();
                         LatLng posicaoAtual = new LatLng(cordenadaAtual.getLat(), cordenadaAtual.getLon());
                         GoogleDirection.withServerKey("AIzaSyCnRSH_4g45uAVNKePEI8H1Zz7abNJ1dFw")
                                 .from(posicaoAtual)

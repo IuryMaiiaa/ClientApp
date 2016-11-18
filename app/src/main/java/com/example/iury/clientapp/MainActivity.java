@@ -12,11 +12,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-
-import HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao.CordenadasHttpController;
 import HuntApi.ControleInteracaoJogo.UsuarioControlers.UsuarioControlerInteracao;
-import HuntApi.Model.CordenadaGeografica;
 import HuntApi.Model.Usuario;
 
 public class MainActivity extends AppCompatActivity implements DialogInterface.OnClickListener {

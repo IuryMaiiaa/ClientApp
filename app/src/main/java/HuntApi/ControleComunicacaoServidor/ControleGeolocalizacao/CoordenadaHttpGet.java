@@ -1,36 +1,31 @@
 package HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao;
 
 import android.os.AsyncTask;
-import android.os.Debug;
-import android.util.JsonReader;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
-import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.CoordenadaGeografica;
 
 /**
  * Created by Iury on 1/2/2016.
  */
-public class CordenadaHttpGet extends AsyncTask<String, Void, ArrayList> {
+public class CoordenadaHttpGet extends AsyncTask<String, Void, ArrayList> {
     public static String urlListarTodas = "listarTodos";
 
     private UrlChamadaServidor urlServidor;
 
-    public CordenadaHttpGet() {
+    public CoordenadaHttpGet() {
         urlServidor = new UrlChamadaServidor();
     }
     @Override
@@ -63,8 +58,8 @@ public class CordenadaHttpGet extends AsyncTask<String, Void, ArrayList> {
         return tranformarJsonCordenadas(dado);
     }
 
-    private ArrayList<CordenadaGeografica> tranformarJsonCordenadas(String dado) {
-        ArrayList<CordenadaGeografica> cordenadas = new ArrayList<CordenadaGeografica>();
+    private ArrayList<CoordenadaGeografica> tranformarJsonCordenadas(String dado) {
+        ArrayList<CoordenadaGeografica> cordenadas = new ArrayList<CoordenadaGeografica>();
 
         try {
             JSONArray jsonCordenadas = new JSONArray(dado);
@@ -73,7 +68,7 @@ public class CordenadaHttpGet extends AsyncTask<String, Void, ArrayList> {
             for(int cont=0;cont<jsonCordenadas.length();cont++) {
                 jsonObject = new JSONObject(jsonCordenadas.getString(cont));
 
-                CordenadaGeografica cordenada = new CordenadaGeografica();
+                CoordenadaGeografica cordenada = new CoordenadaGeografica();
                 cordenada.setID(jsonObject.getInt("id"));
                 cordenada.setLat(jsonObject.getDouble("lat"));
                 cordenada.setLon(jsonObject.getDouble("lon"));
@@ -88,9 +83,9 @@ public class CordenadaHttpGet extends AsyncTask<String, Void, ArrayList> {
         return cordenadas;
     }
 
-    public ArrayList<CordenadaGeografica> getTodasCordenadas() {
+    public ArrayList<CoordenadaGeografica> getTodasCordenadas() {
 
-        ArrayList<CordenadaGeografica> cordenadas = new ArrayList<CordenadaGeografica>();
+        ArrayList<CoordenadaGeografica> cordenadas = new ArrayList<CoordenadaGeografica>();
         this.execute(urlServidor.getUrlCordenada() + urlListarTodas);
 
         try {

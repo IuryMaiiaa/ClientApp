@@ -1,7 +1,6 @@
 package HuntApi.ControleComunicacaoServidor.ControleQuest;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -9,12 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -25,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 
 import HuntApi.ControleComunicacaoServidor.Utilities.QuestReferenciaCircular;
 import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
-import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.CoordenadaGeografica;
 import HuntApi.Model.QuestGeolocalizada;
 
 /**
@@ -36,7 +33,7 @@ public class ListarQuestsProximas extends AsyncTask<String, Void, List<QuestGeol
     private static String urlListarProximas = "listarProximas";
 
     private QuestReferenciaCircular questReferenciaCircular;
-    private CordenadaGeografica cordenada;
+    private CoordenadaGeografica cordenada;
     private int raio;
     private List<QuestGeolocalizada> quests;
     private UrlChamadaServidor urlServidor;
@@ -49,8 +46,8 @@ public class ListarQuestsProximas extends AsyncTask<String, Void, List<QuestGeol
         quests = new ArrayList<QuestGeolocalizada>();
     }
 
-    public List<QuestGeolocalizada> listarProximas(CordenadaGeografica cordenadaGeografica,int raio) {
-        cordenada = cordenadaGeografica;
+    public List<QuestGeolocalizada> listarProximas(CoordenadaGeografica coordenadaGeografica, int raio) {
+        cordenada = coordenadaGeografica;
         this.raio = raio;
 
         this.execute(urlListarProximas);

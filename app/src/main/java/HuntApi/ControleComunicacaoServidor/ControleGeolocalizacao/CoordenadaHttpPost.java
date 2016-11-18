@@ -1,7 +1,6 @@
 package HuntApi.ControleComunicacaoServidor.ControleGeolocalizacao;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -10,47 +9,45 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 
 import HuntApi.ControleComunicacaoServidor.Utilities.UrlChamadaServidor;
-import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.CoordenadaGeografica;
 
 /**
  * Created by Iury on 1/8/2016.
  */
-public class CordenadaHttpPost extends AsyncTask<String, Void, String> {
+public class CoordenadaHttpPost extends AsyncTask<String, Void, String> {
     public static String addCordenada = "addCordenada";
     public static String removeCordenada = "removeCordenada";
     public static String updateCordenada = "updateCordenada";
 
-    CordenadaGeografica cordenada;
+    CoordenadaGeografica cordenada;
     private Gson gson;
 
     UrlChamadaServidor urlChamadaServidor;
     URLConnection conn = null;
 
-    public CordenadaHttpPost() {
+    public CoordenadaHttpPost() {
         gson = new Gson();
         urlChamadaServidor = new UrlChamadaServidor();
     }
 
-    public void addCordenada(CordenadaGeografica cordenada) {
+    public void addCordenada(CoordenadaGeografica cordenada) {
         this.cordenada = cordenada;
         this.execute(addCordenada);
     }
 
-    public void updateCordenada(CordenadaGeografica cordenada) {
+    public void updateCordenada(CoordenadaGeografica cordenada) {
         this.cordenada = cordenada;
         this.execute(updateCordenada);
     }
 
-    public void removeCordenada(CordenadaGeografica cordenada) {
+    public void removeCordenada(CoordenadaGeografica cordenada) {
         this.cordenada = cordenada;
         this.execute(removeCordenada);
     }

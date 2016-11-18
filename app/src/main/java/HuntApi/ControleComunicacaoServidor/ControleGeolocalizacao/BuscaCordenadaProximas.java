@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import HuntApi.Model.CordenadaGeografica;
+import HuntApi.Model.CoordenadaGeografica;
 
 /**
  * Created by Iury on 3/24/2016.
@@ -55,8 +55,8 @@ public class BuscaCordenadaProximas extends AsyncTask<String, Void, ArrayList> {
         return tranformarJsonCordenadas(dado);
     }
 
-    private ArrayList<CordenadaGeografica> tranformarJsonCordenadas(String dado) {
-        ArrayList<CordenadaGeografica> cordenadas = new ArrayList<CordenadaGeografica>();
+    private ArrayList<CoordenadaGeografica> tranformarJsonCordenadas(String dado) {
+        ArrayList<CoordenadaGeografica> cordenadas = new ArrayList<CoordenadaGeografica>();
 
         try {
             JSONArray jsonCordenadas = new JSONArray(dado);
@@ -65,7 +65,7 @@ public class BuscaCordenadaProximas extends AsyncTask<String, Void, ArrayList> {
             for(int cont=0;cont<jsonCordenadas.length();cont++) {
                 jsonObject = new JSONObject(jsonCordenadas.getString(cont));
 
-                CordenadaGeografica cordenada = new CordenadaGeografica();
+                CoordenadaGeografica cordenada = new CoordenadaGeografica();
                 cordenada.setID(jsonObject.getInt("id"));
                 cordenada.setLat(jsonObject.getDouble("lat"));
                 cordenada.setLon(jsonObject.getDouble("lon"));

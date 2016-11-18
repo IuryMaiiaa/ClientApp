@@ -3,17 +3,17 @@ package HuntApi.Model;
 /**
  * Created by Iury on 1/2/2016.
  */
-public class CordenadaGeografica {
+public class CoordenadaGeografica {
 
     private int id;
     private double lat;
     private double lon;
 
 
-    public CordenadaGeografica() {
+    public CoordenadaGeografica() {
 
     }
-    public CordenadaGeografica(double lat, double lon) {
+    public CoordenadaGeografica(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
     }

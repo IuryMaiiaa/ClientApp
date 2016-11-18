@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -14,19 +13,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
-import java.util.List;
-
-import HuntApi.ControleComunicacaoServidor.ControleQuest.QuestHttpController;
-import HuntApi.ControleGeolocalizacao.GoogleMaps.GerenciadorDeMarcadores;
 import HuntApi.ControleGeolocalizacao.GoogleMaps.HuntApiGoogleServiceGerente;
 import HuntApi.ControleInteracaoJogo.UsuarioControlers.UsuarioControlerInteracao;
-import HuntApi.Model.CordenadaGeografica;
-import HuntApi.Model.QuestGeolocalizada;
+import HuntApi.Model.CoordenadaGeografica;
 
 public class MapsActivity extends FragmentActivity  implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, mapsFragment.OnFragmentInteractionListener {
 
     private GoogleMap mMap;
-    private CordenadaGeografica cordenadaAtual;
+    private CoordenadaGeografica cordenadaAtual;
     private GoogleApiClient mGoogleApiClient;
     private HuntApiGoogleServiceGerente huntApiGoogleServiceGerente;
     private Location mLocationRequest;
@@ -34,7 +28,7 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
     public MapsActivity() {
         super();
         huntApiGoogleServiceGerente = new HuntApiGoogleServiceGerente();
-        cordenadaAtual = new CordenadaGeografica();
+        cordenadaAtual = new CoordenadaGeografica();
 
 
     }
